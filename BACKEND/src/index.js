@@ -1,7 +1,6 @@
 const express = require("express")
 const server = express()
 
-
 server.get("/teste", (req, res) => {
     res.send("TUDO CERTO COM A NOSSA API")
 })
