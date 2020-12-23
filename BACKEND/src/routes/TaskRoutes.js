@@ -7,6 +7,7 @@ const macaddressValidation = require('../middleware/MacaddressValidation')
 
 router.post('/', TaskValidation,  TaskController.create)
 router.put('/:id', TaskValidation, TaskController.update)
+router.get('/:id', TaskController.show)
 router.get('/filter/all', macaddressValidation, TaskController.all)
 
 module.exports = router
