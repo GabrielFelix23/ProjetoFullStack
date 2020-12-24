@@ -1,4 +1,5 @@
 const TaskModel = require('../model/TaskModel')
+const {startOfDay, endOfDay} = require('date-fns')
 const current = new Date()
 
 class TaskController{
@@ -76,6 +77,21 @@ class TaskController{
             //$lt quer dizer menor ou igual
             'when': {'$lt': current},
             //nesse dispositivo
+            'macaddress': {'$in': req.body.macaddress}
+        })
+        .sort('when')
+        .then((response) => {
+            return res.status(200).json(response)
+        })
+        .catch((error) => {
+            return res.status(500).json(error)
+        })
+    }
+
+    async today(req, res){
+        await TaskModel.find({
+            //$gte para ver se é maior ou igual DO QUE e $lt menor ou igual a que
+            'when': {'$gte': startOfDay(current),'$lt': endOfDay(current)},
             'macaddress': {'$in': req.body.macaddress}
         })
         .sort('when')
