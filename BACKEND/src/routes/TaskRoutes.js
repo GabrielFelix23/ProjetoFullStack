@@ -15,5 +15,6 @@ router.get('/filter/all', macaddressValidation, TaskController.all)
 router.get('/filter/late', macaddressValidation, TaskController.late)
 router.get('/filter/today', macaddressValidation, TaskController.today)
 router.get('/filter/week', macaddressValidation, TaskController.week)
+router.get('/filter/month', macaddressValidation, TaskController.month)
 
 module.exports = router
