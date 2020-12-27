@@ -33,7 +33,7 @@ class TaskController{
     }
 
     async all(req, res){
-        await TaskModel.find({macaddress: {'$in': req.body.macaddress}})
+        await TaskModel.find({macaddress: {'$in': req.params.macaddress}})
             .sort('when')
             .then((response) => {
                 return res.status(200).json(response)
@@ -82,10 +82,8 @@ class TaskController{
 
     async late(req, res){
         await TaskModel.find({
-            //$lt quer dizer menor ou igual
             'when': {'$lt': current},
-            //nesse dispositivo
-            'macaddress': {'$in': req.body.macaddress}
+            'macaddress': {'$in': req.params.macaddress}
         })
         .sort('when')
         .then((response) => {
@@ -100,7 +98,7 @@ class TaskController{
         await TaskModel.find({
             //$gte para ver se é maior ou igual DO QUE e $lt menor ou igual a que
             'when': {'$gte': startOfDay(current),'$lt': endOfDay(current)},
-            'macaddress': {'$in': req.body.macaddress}
+            'macaddress': {'$in': req.params.macaddress}
         })
         .sort('when')
         .then((response) => {
@@ -114,7 +112,7 @@ class TaskController{
     async week(req, res){
         await TaskModel.find({
             'when': {'$gte': startOfWeek(current), '$lte': endOfWeek(current)},
-            'macaddress': {'$in': req.body.macaddress}
+            'macaddress': {'$in': req.params.macaddress}
         })
         .sort('when')
         .then((response) => {
@@ -128,7 +126,7 @@ class TaskController{
     async month(req, res){
         await TaskModel.find({
             'when': {'$gte': startOfMonth(current), '$lte': endOfMonth(current)},
-            'macaddress': {'$in': req.body.macaddress}
+            'macaddress': {'$in': req.params.macaddress}
         })
         .sort('when')
         .then((response) => {
@@ -142,7 +140,7 @@ class TaskController{
     async year(req, res){
         await TaskModel.find({
             'when': {'$gte': startOfYear(current), '$lte': endOfYear(current)},
-            'macaddress': {'$in': req.body.macaddress}
+            'macaddress': {'$in': req.params.macaddress}
         })
         .sort('when')
         .then((response) => {
